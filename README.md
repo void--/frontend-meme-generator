@@ -1,1 +1,1 @@
-# Front end meme generator using html5 canvas
+# Front end meme generator using canvas
