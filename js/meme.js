@@ -92,10 +92,11 @@ document.addEventListener('click', function(e) {
 });
 
 document.addEventListener('keydown', function(e) {
+    // console.log(e.which);
     if (!(e.which > 47 && e.which < 58) &&
         !(e.which > 64 && e.which < 91) &&
         !(e.which > 96 && e.which < 123) &&
-        !([32, 8, 186, 188, 189, 190].includes(e.which))) {
+        !([32, 8, 186, 187, 188, 189, 190, 222].includes(e.which))) {
         return false;
     }
 
