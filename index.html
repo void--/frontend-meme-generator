@@ -1,43 +1,52 @@
 <html>
   <head>
-    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
     <style>
       @font-face {
         font-family: 'FatFont';
         src: url('assets/fatfont.woff2') format('woff2');
       }
       .meme-gen__container {
-        font-family: 'FatFont';
         width: 80vw;
         max-width: 500px;
         height: auto;
         display: block;
         margin: 0 auto;
         position: relative;
-        font-size: 80px;
         border: 1px solid black;
+        overflow: hidden;
       }
-      .meme-gen__canvas {
+      .meme-gen--hidden {
+        display: none;
+      }
+      #meme-gen__canvas-hidden {
+        height: 1200px;
+        width: 1200px;
+        visibility: hidden;
+        position: absolute;
+      }
+      #meme-gen__canvas-dummy {
         width: 100%;
       }
     </style>
   </head>
   <body>
     <div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
+    <input id="meme-gen__file-upload" type="file" style="visibility: hidden">
+    <img id="meme-gen__background-image" style="visibility: hidden; height: 0; width: 0" src="" alt="">
     <div class="meme-gen__container">
-      <canvas id="meme-gen__canvas" class="meme-gen__canvas" width="1200" height="1200"></canvas>
+      <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
+      <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas>
+      <button id="meme-gen__photo-button" class="meme-gen--hidden">Add a photo</button>
+      <div class="meme-gen__controls">
+        <ul>
+          <li></li>
+          <li><a id="meme-gen__download-link">download that shit</a></li>
+          <li></li>
+        </ul>
+      </div>
     </div>
-    <!--<script src="js/paper-full.min.js"></script>
-    <script src="js/meme.js" type="text/paperscript" canvas="meme-gen__canvas"></script>-->
 
-    <script src="js/easel-version.js"></script>
+    <script src="js/paper-full.min.js"></script>
+    <script src="js/meme.js" type="text/paperscript" canvas="meme-gen__canvas-hidden"></script>
   </body>
 </html>
-
-
-<!--         var image = new Image();
-        image.src = 'https://i.imgur.com/fbTx2HH.jpg?2';
-        image.onload = function (e) {
-          stage.addChild(new createjs.Bitmap(e.target));
-          stage.update();
-        } -->
