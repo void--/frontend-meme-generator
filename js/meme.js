@@ -144,6 +144,8 @@ fileInput.addEventListener('change', function(e) {
     var filter = /^image\//i;
     var image = document.getElementById('meme-gen__background-image');
 
+    document.getElementById('meme-gen__controls').classList.remove('meme-gen--hidden');
+
     if (raster) {
         raster.remove();
     }
@@ -165,6 +167,7 @@ fileInput.addEventListener('change', function(e) {
             var smallerDimension = Math.min(bounds.width, bounds.height);
             raster.scale(canvas.offsetWidth / smallerDimension);
             raster.position = view.center;
+            raster.opacity = 0;
         };
         image.src = event.target.result;
     };
@@ -191,6 +194,10 @@ function onFrame(e) {
     }
     else {
         cursor.opacity = 0;
+    }
+
+    if (raster && raster.opacity < 1) {
+        raster.opacity += 0.1;
     }
 
     var dest = document.getElementById('meme-gen__canvas-dummy');

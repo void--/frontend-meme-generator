@@ -12,7 +12,6 @@
         display: block;
         margin: 0 auto;
         position: relative;
-        border: 1px solid black;
         overflow: hidden;
       }
       .meme-gen--hidden {
@@ -27,6 +26,10 @@
       #meme-gen__canvas-dummy {
         width: 100%;
       }
+      #meme-gen__download-link {
+        color: black;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -37,12 +40,8 @@
       <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
       <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas>
       <button id="meme-gen__photo-button" class="meme-gen--hidden">Add a photo</button>
-      <div class="meme-gen__controls">
-        <ul>
-          <li></li>
-          <li><a id="meme-gen__download-link">download that shit</a></li>
-          <li></li>
-        </ul>
+      <div id="meme-gen__controls" class="meme-gen--hidden">
+          <button><a id="meme-gen__download-link">download</a></button>
       </div>
     </div>
 
