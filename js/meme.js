@@ -130,8 +130,9 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-dummyCanvas.addEventListener('click', function() {
+dummyCanvas.addEventListener('click', function(e) {
     state.canvasFocused = true;
+    document.getElementById('meme-gen__dummy-input').focus();
 });
 
 photoButton.addEventListener('click', function() {
