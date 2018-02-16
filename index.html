@@ -26,6 +26,18 @@
       #meme-gen__canvas-dummy {
         width: 100%;
       }
+      .meme-gen__dummy-wrapper {
+        position: relative;
+      }
+      #meme-gen__dummy-input {
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
       #meme-gen__download-link {
         color: black;
         text-decoration: none;
@@ -35,11 +47,14 @@
   <body>
     <div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
     <input id="meme-gen__file-upload" type="file" style="visibility: hidden">
-    <input id="meme-gen__dummy-input" type="text">
     <img id="meme-gen__background-image" style="visibility: hidden; height: 0; width: 0" src="" alt="">
     <div class="meme-gen__container">
       <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
-      <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas>
+      <div class="meme-gen__dummy-wrapper">
+        <input id="meme-gen__dummy-input" type="text" style="opacity: 0">
+        <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas> 
+      </div>
+
       <button id="meme-gen__photo-button" class="meme-gen--hidden">Add a photo</button>
       <div id="meme-gen__controls" class="meme-gen--hidden">
           <button><a id="meme-gen__download-link">download</a></button>

@@ -89,6 +89,7 @@ userText.centerText();
 document.addEventListener('click', function(e) {
     if ((e.target !== dummyCanvas) && (e.target !== dummyInput)) {
         state.canvasFocused = false;
+        console.log(e.target);
     }
 });
 
@@ -132,13 +133,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 dummyInput.addEventListener('click', function(e) {
-    e.target.focus();
-});
-
-
-dummyCanvas.addEventListener('click', function(e) {
     state.canvasFocused = true;
-    dummyInput.click();
 });
 
 photoButton.addEventListener('click', function() {
