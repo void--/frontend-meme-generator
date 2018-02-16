@@ -9,6 +9,7 @@ var state = {
 
 var canvas = document.getElementById('meme-gen__canvas-hidden');
 var dummyCanvas = document.getElementById('meme-gen__canvas-dummy');
+var dummyInput = document.getElementById('meme-gen__dummy-input');
 var photoButton = document.getElementById('meme-gen__photo-button');
 var fileInput = document.getElementById('meme-gen__file-upload');
 var downloadLink = document.getElementById('meme-gen__download-link');
@@ -86,7 +87,7 @@ userText.centerText();
  ========================================================================== */
 
 document.addEventListener('click', function(e) {
-    if (e.target !== dummyCanvas) {
+    if ((e.target !== dummyCanvas) && (e.target !== dummyInput)) {
         state.canvasFocused = false;
     }
 });
@@ -130,9 +131,14 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+dummyInput.addEventListener('click', function(e) {
+    e.target.focus();
+});
+
+
 dummyCanvas.addEventListener('click', function(e) {
     state.canvasFocused = true;
-    document.getElementById('meme-gen__dummy-input').focus();
+    dummyInput.click();
 });
 
 photoButton.addEventListener('click', function() {
