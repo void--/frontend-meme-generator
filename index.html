@@ -14,9 +14,6 @@
         position: relative;
         overflow: hidden;
       }
-      .meme-gen--hidden {
-        display: none;
-      }
       #meme-gen__canvas-hidden {
         height: 1200px;
         width: 1200px;
@@ -28,19 +25,34 @@
       }
       .meme-gen__dummy-wrapper {
         position: relative;
+        margin-bottom: 5px;
       }
       #meme-gen__dummy-input {
         position: absolute;
         width: 100%;
+        height: 100%;
+        padding: 50%;
         z-index: 1000;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
       }
-      #meme-gen__download-link {
+      .meme-gen__button {
         color: black;
         text-decoration: none;
+        border: 1px solid black;
+        cursor pointer;
+        font-family: sans-serif;
+        background: transparent;
+        font-size: 14px;
+        display: inline-block;
+        margin-bottom: 5px;
+        padding: 5px 10px;
+        text-transform: lowercase;
+        cursor: pointer;
+      }
+      .meme-gen__button:hover {
+        background: #eee;
+      }
+      .meme-gen--hidden {
+        display: none;
       }
     </style>
   </head>
@@ -55,9 +67,9 @@
         <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas> 
       </div>
 
-      <button id="meme-gen__photo-button" class="meme-gen--hidden">Add a photo</button>
+      <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button">Add a photo</button>
       <div id="meme-gen__controls" class="meme-gen--hidden">
-          <button><a id="meme-gen__download-link">download</a></button>
+          <a class="meme-gen__button" id="meme-gen__download-link">download</a>
       </div>
     </div>
 
