@@ -131,6 +131,7 @@ document.addEventListener('click', function(e) {
 //     }
 // });
 
+
 dummyInput.addEventListener('input', function(e) {
     if (state.canvasFocused && state.contentEditing) {
         if (userText.content.length < 21) {
@@ -151,6 +152,12 @@ dummyInput.addEventListener('input', function(e) {
         userText.centerText();
         userText.updatePosition();
         cursor.update();
+    }
+});
+
+dummyInput.addEventListener('keydown', function(e) {
+    if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
     }
 });
 

@@ -26,13 +26,22 @@
       .meme-gen__dummy-wrapper {
         position: relative;
         margin-bottom: 5px;
+        overflow: hidden;
       }
       #meme-gen__dummy-input {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 50%;
+        width: 200%;
+        left: -99%; /* prevent user from clicking into text and moving the cursor */
+        height: 105%;
+        top: -1%;
+        opacity: 0;
         z-index: 1000;
+      }
+      #meme-gen__dummy-input:focus {
+        outline: none;
+      }
+      #meme-gen__dummy-input::-moz-focus-inner {
+        border: 0;
       }
       .meme-gen__button {
         color: black;
@@ -63,7 +72,7 @@
     <div class="meme-gen__container">
       <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
       <div class="meme-gen__dummy-wrapper">
-        <input id="meme-gen__dummy-input" type="text" style="opacity: 0">
+        <input id="meme-gen__dummy-input" type="text" autocomplete="off">
         <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas> 
       </div>
 
