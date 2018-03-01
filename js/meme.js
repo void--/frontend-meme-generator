@@ -14,6 +14,7 @@ var photoButton = document.getElementById('meme-gen__photo-button');
 var fileInput = document.getElementById('meme-gen__file-upload');
 var downloadLink = document.getElementById('meme-gen__download-link');
 var raster = null;
+var textColor = 'black';
 
 PointText.prototype.centerText = function() {
     this.point.x = view.center.x - (this.bounds.width/2);
@@ -24,36 +25,43 @@ PointText.prototype.setFontWidth = function(percent) {
 
     while (this.bounds.width < (percent/100) * canvas.offsetWidth) {
         this.fontSize += 1;
+
+        if (this.fontSize >= 450) break;
     }
 };
 
 var laLove = new PointText({
-    point: view.center,
-    content: 'LA ❤',
+    point: [view.bounds.x + (view.bounds.width * 15/100) - 25, view.center.y],
+    content: 'LA',
     fontFamily: 'FatFont',
-    fontSize: 80,
-    fillColor: 'black'
+    fontSize: 450,
+    fillColor: textColor
 });
 
-laLove.setFontWidth(70);
-laLove.centerText();
+var heart = project.importSVG('<path xmlns="http://www.w3.org/2000/svg" class="cls-1" d="M782.21,39.5c14.88,0,30.75.8,47.7,2.46C933.11,52,1052.44,146.52,1067,327.57v60.26c-13.53,173.29-144.37,387.05-526.71,655.22C158,774.88,27.15,561.12,13.61,387.83V327.57C28.14,146.52,147.47,52,250.66,42c17-1.66,32.83-2.46,47.71-2.46C417.61,39.5,474.82,91,540.29,169.07,605.78,91,663,39.5,782.21,39.5"/>');
+
+heart.bounds.height = 315;
+heart.bounds.width = 315;
+heart.fillColor = textColor;
+heart.position = [view.bounds.width - (view.bounds.width * 15/100) - (heart.bounds.width / 2), view.center.y - (heart.bounds.height / 2)];
 
 var userText = new PointText({
     point: view.center,
     content: '',
     fontFamily: 'FatFont',
     fontSize: laLove.fontSize,
-    fillColor: 'black'
+    leading: this.fontSize,
+    fillColor: textColor
 });
 
 userText.updatePosition = function() {
-    this.position.y = laLove.bounds.bottom + userText.fontSize / 4;
+    this.position.y = heart.bounds.bottom + this.fontSize * .41 + 50;
 };
 
 userText.updatePosition();
 
 var cursor = new Shape.Rectangle({
-    fillColor: 'red'
+    fillColor: textColor
 });
 
 cursor.update = function() {
@@ -134,7 +142,7 @@ document.addEventListener('click', function(e) {
 
 dummyInput.addEventListener('input', function(e) {
     if (state.canvasFocused && state.contentEditing) {
-        if (userText.content.length < 21) {
+        if (e.target.value.length < 21) {
             userText.content = e.target.value.toUpperCase();
         }
 
@@ -159,6 +167,10 @@ dummyInput.addEventListener('keydown', function(e) {
     if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
     }
+
+    if ((e.target.value.length >= 20) && (e.key !== 'Backspace')) {
+        e.preventDefault();
+    }
 });
 
 dummyInput.addEventListener('click', function(e) {
@@ -173,7 +185,7 @@ photoButton.addEventListener('click', function() {
 fileInput.addEventListener('change', function(e) {
     var file = e.target.files[0];
     var filter = /^image\//i;
-    var image = document.getElementById('meme-gen__background-image');
+    var image = new Image();
 
     document.getElementById('meme-gen__controls').classList.remove('meme-gen--hidden');
 
@@ -191,12 +203,39 @@ fileInput.addEventListener('change', function(e) {
     reader.onload = function (event) {
 
         image.onload = function () {
-            raster = new Raster(image).sendToBack();
 
-            // Scale image if necessary
-            var bounds = raster.bounds;
-            var smallerDimension = Math.min(bounds.width, bounds.height);
-            raster.scale(canvas.offsetWidth / smallerDimension);
+            var tempCanvas = document.createElement("canvas");
+            var tempCtx = tempCanvas.getContext("2d");
+            var w = image.width;
+            var h = image.height;
+
+            tempCanvas.setAttribute('width', 1200);
+            tempCanvas.setAttribute('height', 1200);
+
+            // // Crop a square out of the middle
+            if (image.width > image.height) {
+                tempCtx.drawImage(image,
+                    // Height will be the final w & h, so (w-h) / 2 is the amount to crop off of each side.
+                    ((w - h) / 2), 0,
+                    h, h,
+                    0, 0,
+                    1200, 1200
+                );
+            }
+            // Same as above but swap width for height.
+            else {
+                tempCtx.drawImage(image,
+                    0, ((h - w) / 2),
+                    w, w,
+                    0, 0,
+                    1200, 1200
+                );
+            }
+
+            dataurl = tempCanvas.toDataURL('image/jpeg');
+
+            raster = new Raster(dataurl).sendToBack();
+
             raster.position = view.center;
             raster.opacity = 0;
         };
