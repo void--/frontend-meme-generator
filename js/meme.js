@@ -3,6 +3,8 @@ var state = {
     canvasFocused: false
 };
 
+var banned = /fuck|traffic/i;
+
 /* ==========================================================================
     Canvas Elements
  ========================================================================== */
@@ -100,47 +102,14 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// document.addEventListener('keydown', function(e) {
-//     // console.log(e.which);
-//     if (!(e.which > 47 && e.which < 58) &&
-//         !(e.which > 64 && e.which < 91) &&
-//         !(e.which > 96 && e.which < 123) &&
-//         !([32, 8, 186, 187, 188, 189, 190, 222].includes(e.which))) {
-//         return false;
-//     }
-
-//     // Backspace navigates back in firefox, spacebar scrolls down. F that.
-//     if (['Backspace', 32].includes(e.which)) {
-//         e.preventDefault();
-//     }
-    
-//     if (state.canvasFocused && state.contentEditing) {
-//         if (e.key === 'Backspace') {
-//             userText.content = userText.content.slice(0, -1);
-//         }
-//         else if (userText.content.length < 21) {
-//             userText.content = userText.content + e.key.toUpperCase();
-//         }
-
-//         if (userText.content.length >= 4) {
-//             userText.setFontWidth(70);
-//         }
-
-//         if (userText.content.length >= 1) {
-//             photoButton.classList.remove('meme-gen--hidden');
-//         }
-//         else {
-//             photoButton.classList.add('meme-gen--hidden');
-//         }
-
-//         userText.centerText();
-//         userText.updatePosition();
-//         cursor.update();
-//     }
-// });
-
 dummyInput.addEventListener('input', function(e) {
     if (state.canvasFocused && state.contentEditing) {
+        if (e.target.value.match(banned)) {
+            e.target.value = '';
+            userText.content = '';
+            userText.fontSize = laLove.fontSize;
+        }
+
         if (e.target.value.length < 21) {
             userText.content = e.target.value.toUpperCase();
         }
