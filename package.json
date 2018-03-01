@@ -1,0 +1,22 @@
+{
+  "name": "meme_generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/void--/frontend_meme_generator.git"
+  },
+  "author": "Theo Ballew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/void--/frontend_meme_generator/issues"
+  },
+  "homepage": "https://github.com/void--/frontend_meme_generator#readme",
+  "dependencies": {
+    "exif-js": "^2.3.0"
+  }
+}

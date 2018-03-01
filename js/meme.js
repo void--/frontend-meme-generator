@@ -139,7 +139,6 @@ document.addEventListener('click', function(e) {
 //     }
 // });
 
-
 dummyInput.addEventListener('input', function(e) {
     if (state.canvasFocused && state.contentEditing) {
         if (e.target.value.length < 21) {
@@ -204,40 +203,58 @@ fileInput.addEventListener('change', function(e) {
 
         image.onload = function () {
 
-            var tempCanvas = document.createElement("canvas");
-            var tempCtx = tempCanvas.getContext("2d");
-            var w = image.width;
-            var h = image.height;
+            window.EXIF.getData(image, function() {
+                var orientation = EXIF.getTag(this, 'Orientation');
 
-            tempCanvas.setAttribute('width', 1200);
-            tempCanvas.setAttribute('height', 1200);
+                var tempCanvas = document.createElement("canvas");
+                var tempCtx = tempCanvas.getContext("2d");
+                var w = image.width;
+                var h = image.height;
 
-            // // Crop a square out of the middle
-            if (image.width > image.height) {
-                tempCtx.drawImage(image,
-                    // Height will be the final w & h, so (w-h) / 2 is the amount to crop off of each side.
-                    ((w - h) / 2), 0,
-                    h, h,
-                    0, 0,
-                    1200, 1200
-                );
-            }
-            // Same as above but swap width for height.
-            else {
-                tempCtx.drawImage(image,
-                    0, ((h - w) / 2),
-                    w, w,
-                    0, 0,
-                    1200, 1200
-                );
-            }
+                tempCanvas.setAttribute('width', 1200);
+                tempCanvas.setAttribute('height', 1200);
 
-            dataurl = tempCanvas.toDataURL('image/jpeg');
+                // // Crop a square out of the middle
+                if (image.width > image.height) {
+                    tempCtx.drawImage(image,
+                        // Height will be the final w & h, so (w-h) / 2 is the amount to crop off of each side.
+                        ((w - h) / 2), 0,
+                        h, h,
+                        0, 0,
+                        1200, 1200
+                    );
+                }
+                // Same as above but swap width for height.
+                else {
+                    tempCtx.drawImage(image,
+                        0, ((h - w) / 2),
+                        w, w,
+                        0, 0,
+                        1200, 1200
+                    );
+                }
 
-            raster = new Raster(dataurl).sendToBack();
+                dataurl = tempCanvas.toDataURL('image/jpeg');
 
-            raster.position = view.center;
-            raster.opacity = 0;
+                raster = new Raster(dataurl).sendToBack();
+
+                switch (orientation) {
+                    case 3:
+                        raster.rotate(180);
+                        break;
+                    case 6:
+                        raster.rotate(90);
+                        break;
+                    case 8:
+                        raster.rotate(-90);
+                        break;
+                    default:
+                        // do nothing.
+                }
+
+                raster.position = view.center;
+                raster.opacity = 0;
+            });
         };
         image.src = event.target.result;
     };
