@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/void--/frontend_meme_generator.git"
+    "url": "git+https://github.com/void--/frontend-meme-generator.git"
   },
   "author": "Theo Ballew",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/void--/frontend_meme_generator/issues"
+    "url": "https://github.com/void--/frontend-meme-generator/issues"
   },
-  "homepage": "https://github.com/void--/frontend_meme_generator#readme",
+  "homepage": "https://github.com/void--/frontend-meme-generator#readme",
   "dependencies": {
     "exif-js": "^2.3.0"
   }
