@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/void--/frontend-meme-generator#readme",
   "dependencies": {
-    "exif-js": "^2.3.0"
+    "exif-js": "^2.3.0",
+    "tiny-css-modal": "^1.0.1"
   }
 }

@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="node_modules/tiny-css-modal/tiny-css-modal.min.css">
     <style>
       @font-face {
         font-family: 'FatFont';
@@ -13,6 +14,9 @@
         margin: 0 auto;
         position: relative;
         overflow: hidden;
+      }
+      .meme-gen__container * {
+        box-sizing: border-box;
       }
       #meme-gen__canvas-hidden {
         height: 1200px;
@@ -33,7 +37,7 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-        z-index: 1000;
+        z-index: 998;
         font-size: 20px;
         text-indent: -1200px;
         padding: 45%;
@@ -53,26 +57,35 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 5px;
         color: black;
         text-decoration: none;
         border: none;
         font-family: 'FatFont', Helvetica, sans-serif;
         text-transform: uppercase;
-        font-size: 18px;
+        font-size: 17px;
         padding: 5px 15px;
         cursor: pointer;
         background: #eee;
         min-width: 30%;
       }
+      .meme-gen__photo-button {
+        margin: 0 auto 5px;
+      }
       .meme-gen__control-row {
         display: flex;
+        justify-content: space-between;
       }
       .meme-gen__button:hover {
         background: #ddd;
       }
       .meme-gen--hidden {
         display: none;
+      }
+      .tcm-content {
+        padding-top: 3rem;
+      }
+      .tcm-close-button {
+        font-family: Helvetica, sans-serif;
       }
     </style>
   </head>
@@ -87,7 +100,7 @@
       </div>
 
       <div class="meme-gen__control-row">
-        <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button">
+        <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button meme-gen__photo-button">
           <svg role="img" title="Share">
             <use xlink:href="assets/icons.svg#image"/>
           </svg>
@@ -99,12 +112,12 @@
 
           </div>
           <div class="meme-gen__control-row">
-            <button class="meme-gen__button">
+            <a href="#tcm-open-modal" class="meme-gen__button">
               <svg role="img" title="Share">
                 <use xlink:href="assets/icons.svg#share"/>
               </svg>
               share
-            </button>
+            </a>
             <a class="meme-gen__button" id="meme-gen__download-link">
               <svg role="img" title="Download">
                 <use xlink:href="assets/icons.svg#download"/>
@@ -118,6 +131,25 @@
               start over
             </button>
           </div>
+      </div>
+      <div id="tcm-open-modal" class="tcm-wrapper">
+        <div class="tcm-content">
+          <a href="#tcm-close-modal" title="Close" class="tcm-close-button">Close</a>
+          <div class="meme-gen__control-row">
+            <a class="meme-gen__button">
+              <svg role="img" title="Twitter">
+                <use xlink:href="assets/icons.svg#twitter"/>
+              </svg>
+              twitter
+            </a>
+            <a class="meme-gen__button">
+              <svg role="img" title="Facebook">
+                <use xlink:href="assets/icons.svg#facebook"/>
+              </svg>
+              facebook
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
