@@ -44,21 +44,32 @@
       #meme-gen__dummy-input::-moz-focus-inner {
         border: 0;
       }
+      .meme-gen__container svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 10px;
+      }
       .meme-gen__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 5px;
         color: black;
         text-decoration: none;
         border: none;
-        font-family: sans-serif;
-        background: transparent;
-        font-size: 14px;
-        display: inline-block;
-        margin-bottom: 5px;
-        padding: 5px 10px;
-        text-transform: lowercase;
+        font-family: 'FatFont', Helvetica, sans-serif;
+        text-transform: uppercase;
+        font-size: 18px;
+        padding: 5px 15px;
         cursor: pointer;
+        background: #eee;
+        min-width: 30%;
+      }
+      .meme-gen__control-row {
+        display: flex;
       }
       .meme-gen__button:hover {
-        background: #eee;
+        background: #ddd;
       }
       .meme-gen--hidden {
         display: none;
@@ -68,16 +79,45 @@
   <body>
     <div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
     <input id="meme-gen__file-upload" type="file" style="visibility: hidden">
-    <div class="meme-gen__container">
+    <div id="meme-gen__container" class="meme-gen__container">
       <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
       <div class="meme-gen__dummy-wrapper">
         <input id="meme-gen__dummy-input" type="text" autocomplete="off">
         <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas>
       </div>
 
-      <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button">Add a photo</button>
+      <div class="meme-gen__control-row">
+        <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button">
+          <svg role="img" title="Share">
+            <use xlink:href="assets/icons.svg#image"/>
+          </svg>
+          Add a photo
+        </button>
+      </div>
       <div id="meme-gen__controls" class="meme-gen--hidden">
-          <a class="meme-gen__button" id="meme-gen__download-link">download</a>
+          <div class="meme-gen__control-row">
+
+          </div>
+          <div class="meme-gen__control-row">
+            <button class="meme-gen__button">
+              <svg role="img" title="Share">
+                <use xlink:href="assets/icons.svg#share"/>
+              </svg>
+              share
+            </button>
+            <a class="meme-gen__button" id="meme-gen__download-link">
+              <svg role="img" title="Download">
+                <use xlink:href="assets/icons.svg#download"/>
+              </svg>
+              download
+            </a>
+            <button id="meme-gen__reload-button" class="meme-gen__button">
+              <svg role="img" title="Share">
+                <use xlink:href="assets/icons.svg#start-over"/>
+              </svg>
+              start over
+            </button>
+          </div>
       </div>
     </div>
 

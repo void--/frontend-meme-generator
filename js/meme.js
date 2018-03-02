@@ -15,6 +15,7 @@ var dummyInput = document.getElementById('meme-gen__dummy-input');
 var photoButton = document.getElementById('meme-gen__photo-button');
 var fileInput = document.getElementById('meme-gen__file-upload');
 var downloadLink = document.getElementById('meme-gen__download-link');
+var reloadButton = document.getElementById('meme-gen__reload-button');
 var raster = null;
 var textColor = 'black';
 
@@ -155,6 +156,7 @@ fileInput.addEventListener('change', function(e) {
     var filter = /^image\//i;
     var image = new Image();
 
+    photoButton.classList.add('meme-gen--hidden');
     document.getElementById('meme-gen__controls').classList.remove('meme-gen--hidden');
 
     if (raster) {
@@ -234,6 +236,11 @@ downloadLink.addEventListener('click', function() {
     var canvas = document.getElementById('meme-gen__canvas-hidden');
     this.href = canvas.toDataURL('image/jpeg');
     this.download = 'la-loves-' + userText.content.toLowerCase().replace(/ /g, '-') + '.png';
+});
+
+reloadButton.addEventListener('click', function() {
+    location.href = location.origin + location.pathname + '#meme-gen__container';
+    location.reload();
 });
 
 /* ==========================================================================
