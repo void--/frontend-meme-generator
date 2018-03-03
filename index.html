@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link rel="stylesheet" href="node_modules/tiny-css-modal/tiny-css-modal.min.css">
+    <link rel="stylesheet" href="node_modules/tiny-js-modal/dist/tiny-js-modal.min.css">
     <style>
       @font-face {
         font-family: 'FatFont';
@@ -101,7 +101,7 @@
 
       <div class="meme-gen__control-row">
         <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button meme-gen__photo-button">
-          <svg role="img" title="Share">
+          <svg role="img" title="Image">
             <use xlink:href="assets/icons.svg#image"/>
           </svg>
           Add a photo
@@ -112,12 +112,12 @@
 
           </div>
           <div class="meme-gen__control-row">
-            <a href="#tcm-open-modal" class="meme-gen__button">
+            <span role="button" tabindex="0" onclick="tjmOpen()" onKeyPress="tjmOpen()" class="meme-gen__button">
               <svg role="img" title="Share">
                 <use xlink:href="assets/icons.svg#share"/>
               </svg>
               share
-            </a>
+            </span>
             <a class="meme-gen__button" id="meme-gen__download-link">
               <svg role="img" title="Download">
                 <use xlink:href="assets/icons.svg#download"/>
@@ -132,9 +132,9 @@
             </button>
           </div>
       </div>
-      <div id="tcm-open-modal" class="tcm-wrapper">
-        <div class="tcm-content">
-          <a href="#tcm-close-modal" title="Close" class="tcm-close-button">Close</a>
+      <div id="tjm" class="tjm">
+        <div  class="tjm-c">
+          <span onclick="tjmClose()" onKeyPress="tjmClose()" title="Close" class="tjm-cb" role="button" tabindex="0">Close</span>
           <div class="meme-gen__control-row">
             <a class="meme-gen__button">
               <svg role="img" title="Twitter">
@@ -155,6 +155,7 @@
 
     <script src="js/paper-full.min.js"></script>
     <script src="node_modules/exif-js/exif.js"></script>
+    <script src="node_modules/tiny-js-modal/dist/tiny-js-modal.min.js"></script>
     <script src="js/meme.js" type="text/paperscript" canvas="meme-gen__canvas-hidden"></script>
   </body>
 </html>
