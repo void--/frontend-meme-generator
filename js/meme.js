@@ -41,31 +41,31 @@ PointText.prototype.setFontWidth = function(percent) {
 var defaultImage = new Raster('./assets/observatory.jpg', view.center).sendToBack();
 
 var laLove = new PointText({
-    point: [view.bounds.x + (view.bounds.width * 15/100) - 25, view.center.y],
+    point: [view.bounds.x + (view.bounds.width * 10/100) - 15, view.center.y + 100],
     content: 'LA',
     fontFamily: 'FatFont',
-    fontSize: 450,
+    fontSize: 550,
     fillColor: textColor
 });
 
 var heart = project.importSVG('<path xmlns="http://www.w3.org/2000/svg" class="cls-1" d="M782.21,39.5c14.88,0,30.75.8,47.7,2.46C933.11,52,1052.44,146.52,1067,327.57v60.26c-13.53,173.29-144.37,387.05-526.71,655.22C158,774.88,27.15,561.12,13.61,387.83V327.57C28.14,146.52,147.47,52,250.66,42c17-1.66,32.83-2.46,47.71-2.46C417.61,39.5,474.82,91,540.29,169.07,605.78,91,663,39.5,782.21,39.5"/>');
 
-heart.bounds.height = 315;
-heart.bounds.width = 315;
+heart.bounds.height = 400;
+heart.bounds.width = 400;
 heart.fillColor = textColor;
-heart.position = [view.bounds.width - (view.bounds.width * 15/100) - (heart.bounds.width / 2), view.center.y - (heart.bounds.height / 2)];
+heart.position = [view.bounds.width - (view.bounds.width * 10/100) - (heart.bounds.width / 2), view.center.y + 100 - (heart.bounds.height / 2)];
 
 var userText = new PointText({
     point: view.center,
     content: '',
     fontFamily: 'FatFont',
-    fontSize: laLove.fontSize,
+    fontSize: 450,
     leading: this.fontSize,
     fillColor: textColor
 });
 
 userText.updatePosition = function() {
-    this.position.y = heart.bounds.bottom + this.fontSize * .41 + 50;
+    this.position.y = heart.bounds.bottom + this.fontSize * .41 + 80;
 };
 
 userText.updatePosition();
@@ -123,7 +123,7 @@ dummyInput.addEventListener('input', function(e) {
         }
 
         if (userText.content.length >= 4) {
-            userText.setFontWidth(70);
+            userText.setFontWidth(80);
         }
 
         if (userText.content.length >= 1) {
