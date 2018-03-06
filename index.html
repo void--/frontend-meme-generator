@@ -35,7 +35,7 @@
 
         .meme-gen__dummy-wrapper {
             position: relative;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             overflow: hidden;
         }
 
@@ -56,6 +56,13 @@
 
         #meme-gen__dummy-input::-moz-focus-inner {
             border: 0;
+        }
+
+        .meme-gen__control-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
 
         .meme-gen__container svg {
@@ -79,7 +86,8 @@
             background: #eee;
             min-width: 30%;
             flex-grow: 1;
-            margin-right: 5px;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
         .meme-gen__button:last-child {
@@ -87,12 +95,9 @@
         }
 
         .meme-gen__default-image {
-            margin-right: 5px;
             overflow: hidden;
-        }
-
-        .meme-gen__default-image:last-child {
-            margin-right: 0;
+            width: calc(33% - 7px);
+            margin-bottom: 10px;
         }
 
         .meme-gen__default-image:hover  img {
@@ -105,19 +110,10 @@
             transition: all 0.3s;
         }
 
-        .meme-gen__control-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
         .meme-gen__photo-button-wrapper {
             justify-content: center;
         }
 
-        .meme-gen__photo-button-wrapper button {
-            margin-right: 5px;
-        }
         .meme-gen__button:hover {
             background: #ddd;
         }
@@ -145,6 +141,36 @@
 
         .tjm-cb {
             font-family: Helvetica, sans-serif;
+        }
+
+        @media (min-width: 600px) {
+            .meme-gen__dummy-wrapper {
+                margin-bottom: 5px;
+            }
+            .meme-gen__control-row {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                margin-bottom: 5px;
+            }
+
+            .meme-gen__default-image {
+                margin-right: 5px;
+                margin-bottom: 0;
+            }
+
+            .meme-gen__default-image:last-child {
+                margin-right: 0;
+            }
+
+            .meme-gen__default-image img {
+                width: 100%;
+                height: auto;
+            }
+            .meme-gen__button {
+                width: auto;
+                margin-right: 5px;
+            }
         }
     </style>
 </head>
