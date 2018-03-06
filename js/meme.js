@@ -13,11 +13,16 @@ var canvas = document.getElementById('meme-gen__canvas-hidden');
 var dummyCanvas = document.getElementById('meme-gen__canvas-dummy');
 var dummyInput = document.getElementById('meme-gen__dummy-input');
 var photoButton = document.getElementById('meme-gen__photo-button');
+var doneButton = document.getElementById('meme-gen__done');
+var colorToggle = document.getElementById('meme-gen__color-toggle');
+var controlsOne = document.getElementById('meme-gen__controls-1');
+var controlsTwo = document.getElementById('meme-gen__controls-2');
 var fileInput = document.getElementById('meme-gen__file-upload');
 var downloadLink = document.getElementById('meme-gen__download-link');
 var reloadButton = document.getElementById('meme-gen__reload-button');
+var defaultImages = document.querySelectorAll('.meme-gen__default-image');
 var raster = null;
-var textColor = 'black';
+var textColor = 'white';
 
 PointText.prototype.centerText = function() {
     this.point.x = view.center.x - (this.bounds.width/2);
@@ -32,6 +37,8 @@ PointText.prototype.setFontWidth = function(percent) {
         if (this.fontSize >= 450) break;
     }
 };
+
+var defaultImage = new Raster('./assets/observatory.jpg', view.center).sendToBack();
 
 var laLove = new PointText({
     point: [view.bounds.x + (view.bounds.width * 15/100) - 25, view.center.y],
@@ -120,10 +127,10 @@ dummyInput.addEventListener('input', function(e) {
         }
 
         if (userText.content.length >= 1) {
-            photoButton.classList.remove('meme-gen--hidden');
+            controlsOne.classList.remove('meme-gen--hidden');
         }
         else {
-            photoButton.classList.add('meme-gen--hidden');
+            controlsOne.classList.add('meme-gen--hidden');
         }
 
         userText.centerText();
@@ -148,6 +155,43 @@ dummyInput.addEventListener('click', function(e) {
 
 photoButton.addEventListener('click', function() {
     fileInput.click();
+});
+
+colorToggle.addEventListener('click', function() {
+    this.classList.toggle('meme-gen__color-toggle--white');
+
+    if (this.classList.contains('meme-gen__color-toggle--white')) {
+        textColor = 'white';
+    }
+    else {
+        textColor = 'black';
+    }
+
+    laLove.fillColor = textColor;
+    heart.fillColor = textColor;
+    userText.fillColor = textColor;
+    cursor.fillColor = textColor;
+});
+
+defaultImages.forEach(function(el, i) {
+   el.addEventListener('click', function(e) {
+
+       if (raster) {
+           raster.remove();
+       }
+
+       if (defaultImage) {
+           defaultImage.remove();
+       }
+
+       raster = new Raster(e.target.src, view.center).sendToBack();
+       raster.opacity = 0;
+   });
+});
+
+doneButton.addEventListener('click', function() {
+    controlsOne.classList.add('meme-gen--hidden');
+    controlsTwo.classList.remove('meme-gen--hidden');
     state.contentEditing = false;
 });
 
@@ -156,11 +200,12 @@ fileInput.addEventListener('change', function(e) {
     var filter = /^image\//i;
     var image = new Image();
 
-    photoButton.classList.add('meme-gen--hidden');
-    document.getElementById('meme-gen__controls').classList.remove('meme-gen--hidden');
-
     if (raster) {
         raster.remove();
+    }
+
+    if (defaultImage) {
+        defaultImage.remove();
     }
 
     if (!(filter.test(file.type))){

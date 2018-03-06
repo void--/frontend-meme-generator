@@ -1,162 +1,257 @@
 <html>
-  <head>
+<head>
     <link rel="stylesheet" href="node_modules/tiny-js-modal/dist/tiny-js-modal.min.css">
     <style>
-      @font-face {
-        font-family: 'FatFont';
-        src: url('assets/fatfont.woff2') format('woff2');
-      }
-      .meme-gen__container {
-        width: 80vw;
-        max-width: 500px;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden;
-        padding: 5px;
-      }
-      .meme-gen__container * {
-        box-sizing: border-box;
-      }
-      #meme-gen__canvas-hidden {
-        height: 1200px;
-        width: 1200px;
-        visibility: hidden;
-        position: absolute;
-      }
-      #meme-gen__canvas-dummy {
-        width: 100%;
-      }
-      .meme-gen__dummy-wrapper {
-        position: relative;
-        margin-bottom: 5px;
-        overflow: hidden;
-      }
-      #meme-gen__dummy-input {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        z-index: 998;
-        font-size: 20px;
-        text-indent: -1200px;
-        padding: 45%;
-      }
-      #meme-gen__dummy-input:focus {
-        outline: none;
-      }
-      #meme-gen__dummy-input::-moz-focus-inner {
-        border: 0;
-      }
-      .meme-gen__container svg {
-        height: 20px;
-        width: 20px;
-        margin-right: 10px;
-      }
-      .meme-gen__button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: black;
-        text-decoration: none;
-        border: none;
-        font-family: 'FatFont', Helvetica, sans-serif;
-        text-transform: uppercase;
-        font-size: 17px;
-        padding: 5px 15px;
-        cursor: pointer;
-        background: #eee;
-        min-width: 30%;
-      }
-      .meme-gen__photo-button {
-        margin: 0 auto 5px;
-      }
-      .meme-gen__control-row {
-        display: flex;
-        justify-content: space-between;
-      }
-      .meme-gen__button:hover {
-        background: #ddd;
-      }
-      .meme-gen--hidden {
-        display: none;
-      }
-      .tjm-c {
-        padding-top: 3rem;
-      }
-      .tjm-cb {
-        font-family: Helvetica, sans-serif;
-      }
+        @font-face {
+            font-family: 'FatFont';
+            src: url('assets/fatfont.woff2') format('woff2');
+        }
+
+        .meme-gen__container {
+            width: 80vw;
+            max-width: 500px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .meme-gen__container * {
+            box-sizing: border-box;
+        }
+
+        #meme-gen__canvas-hidden {
+            height: 1200px;
+            width: 1200px;
+            visibility: hidden;
+            position: absolute;
+        }
+
+        #meme-gen__canvas-dummy {
+            width: 100%;
+        }
+
+        .meme-gen__dummy-wrapper {
+            position: relative;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        #meme-gen__dummy-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 998;
+            font-size: 20px;
+            text-indent: -1200px;
+            padding: 45%;
+        }
+
+        #meme-gen__dummy-input:focus {
+            outline: none;
+        }
+
+        #meme-gen__dummy-input::-moz-focus-inner {
+            border: 0;
+        }
+
+        .meme-gen__container svg {
+            height: 20px;
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .meme-gen__button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            text-decoration: none;
+            border: none;
+            font-family: 'FatFont', Helvetica, sans-serif;
+            text-transform: uppercase;
+            font-size: 17px;
+            padding: 5px 15px;
+            cursor: pointer;
+            background: #eee;
+            min-width: 30%;
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+
+        .meme-gen__button:last-child {
+            margin-right: 0;
+        }
+
+        .meme-gen__default-image {
+            margin-right: 5px;
+            overflow: hidden;
+        }
+
+        .meme-gen__default-image:last-child {
+            margin-right: 0;
+        }
+
+        .meme-gen__default-image:hover  img {
+            transform: scale(1.1);
+        }
+
+        .meme-gen__default-image img {
+            width: 100%;
+            height: auto;
+            transition: all 0.3s;
+        }
+
+        .meme-gen__control-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .meme-gen__photo-button-wrapper {
+            justify-content: center;
+        }
+
+        .meme-gen__photo-button-wrapper button {
+            margin-right: 5px;
+        }
+        .meme-gen__button:hover {
+            background: #ddd;
+        }
+
+        .meme-gen__color-toggle--white {
+            color: white;
+            background: #333;
+        }
+
+        .meme-gen__color-toggle--white:hover {
+            background: #444;
+        }
+
+        .meme-gen__color-toggle--white svg {
+            fill: white;
+        }
+
+        .meme-gen--hidden {
+            display: none;
+        }
+
+        .tjm-c {
+            padding-top: 3rem;
+        }
+
+        .tjm-cb {
+            font-family: Helvetica, sans-serif;
+        }
     </style>
-  </head>
-  <body>
-    <div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
-    <input id="meme-gen__file-upload" type="file" style="visibility: hidden">
-    <div id="meme-gen__container" class="meme-gen__container">
-      <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
-      <div class="meme-gen__dummy-wrapper">
+</head>
+<body>
+<div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
+<input id="meme-gen__file-upload" type="file" style="visibility: hidden">
+<div id="meme-gen__container" class="meme-gen__container">
+    <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
+    <div class="meme-gen__dummy-wrapper">
         <input id="meme-gen__dummy-input" type="text" autocomplete="off">
         <canvas id="meme-gen__canvas-dummy" class="meme-gen__canvas" width="1200" height="1200"></canvas>
-      </div>
-
-      <div class="meme-gen__control-row">
-        <button id="meme-gen__photo-button" class="meme-gen--hidden meme-gen__button meme-gen__photo-button">
-          <svg role="img" title="Image">
-            <use xlink:href="assets/icons.svg#image"/>
-          </svg>
-          Add a photo
-        </button>
-      </div>
-      <div id="meme-gen__controls" class="meme-gen--hidden">
-          <div class="meme-gen__control-row">
-
-          </div>
-          <div class="meme-gen__control-row">
-            <span role="button" tabindex="0" onclick="tjmOpen()" onKeyPress="tjmOpen()" class="meme-gen__button">
-              <svg role="img" title="Share">
-                <use xlink:href="assets/icons.svg#share"/>
-              </svg>
-              share
-            </span>
-            <a class="meme-gen__button" id="meme-gen__download-link">
-              <svg role="img" title="Download">
-                <use xlink:href="assets/icons.svg#download"/>
-              </svg>
-              download
-            </a>
-            <button id="meme-gen__reload-button" class="meme-gen__button">
-              <svg role="img" title="Share">
-                <use xlink:href="assets/icons.svg#start-over"/>
-              </svg>
-              start over
-            </button>
-          </div>
-      </div>
-      <div id="tjm" class="tjm">
-        <div  class="tjm-c">
-          <span onclick="tjmClose()" onKeyPress="tjmClose()" title="Close" class="tjm-cb" role="button" tabindex="0">Close</span>
-          <div class="meme-gen__control-row">
-            <a class="meme-gen__button">
-              <svg role="img" title="Twitter">
-                <use xlink:href="assets/icons.svg#twitter"/>
-              </svg>
-              twitter
-            </a>
-            <a class="meme-gen__button">
-              <svg role="img" title="Facebook">
-                <use xlink:href="assets/icons.svg#facebook"/>
-              </svg>
-              facebook
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <script src="js/paper-full.min.js"></script>
-    <script src="node_modules/exif-js/exif.js"></script>
-    <script src="node_modules/tiny-js-modal/dist/tiny-js-modal.min.js"></script>
-    <script src="js/meme.js" type="text/paperscript" canvas="meme-gen__canvas-hidden"></script>
-  </body>
+    <div id="meme-gen__controls-2" class="meme-gen--hidden">
+        <div class="meme-gen__control-row">
+            <span role="button" tabindex="0" onclick="tjmOpen()" onKeyPress="tjmOpen()" class="meme-gen__button">
+                <svg role="img" title="Share">
+                    <use xlink:href="assets/icons.svg#share"/>
+                </svg>
+                share
+            </span>
+            <a class="meme-gen__button" id="meme-gen__download-link">
+                <svg role="img" title="Download">
+                    <use xlink:href="assets/icons.svg#download"/>
+                </svg>
+                download
+            </a>
+            <button id="meme-gen__reload-button" class="meme-gen__button">
+                <svg role="img" title="Share">
+                    <use xlink:href="assets/icons.svg#start-over"/>
+                </svg>
+                start over
+            </button>
+        </div>
+    </div>
+
+    <div id="meme-gen__controls-1" class="meme-gen--hidden">
+        <div id="meme-gen__image-selection-container" class="meme-gen__control-row">
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/bath-time.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/bugeyes.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/puff.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/pupface.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/puppy-ball.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/sad-pup.jpg" alt="" >
+            </div>
+            <div class="meme-gen__default-image">
+                <img src="./assets/default_images/sleepy.jpg" alt="" >
+            </div>
+        </div>
+        <div class="meme-gen__control-row meme-gen__photo-button-wrapper">
+            <button id="meme-gen__color-toggle" class="meme-gen__button meme-gen__color-toggle meme-gen__color-toggle--white">
+                <svg role="img" title="Toggle Text Color">
+                    <use xlink:href="assets/icons.svg#paintbrush"/>
+                </svg>
+                Text Color
+            </button>
+            <button id="meme-gen__photo-button" class=" meme-gen__button meme-gen__photo-button">
+                <svg role="img" title="Image">
+                    <use xlink:href="assets/icons.svg#image"/>
+                </svg>
+                Add a photo
+            </button>
+            <button id="meme-gen__done" class="meme-gen__button">
+                <svg role="img" title="Done">
+                    <use xlink:href="assets/icons.svg#check"/>
+                </svg>
+                Lookin' Good
+            </button>
+        </div>
+
+    </div>
+
+    <div id="tjm" class="tjm">
+        <div class="tjm-c">
+            <span onclick="tjmClose()" onKeyPress="tjmClose()" title="Close" class="tjm-cb" role="button" tabindex="0">Close</span>
+            <div class="meme-gen__control-row">
+                <a class="meme-gen__button">
+                    <svg role="img" title="Twitter">
+                        <use xlink:href="assets/icons.svg#twitter"/>
+                    </svg>
+                    twitter
+                </a>
+                <a class="meme-gen__button">
+                    <svg role="img" title="Facebook">
+                        <use xlink:href="assets/icons.svg#facebook"/>
+                    </svg>
+                    facebook
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/paper-full.min.js"></script>
+<script src="node_modules/exif-js/exif.js"></script>
+<script src="node_modules/tiny-js-modal/dist/tiny-js-modal.min.js"></script>
+<script src="js/meme.js" type="text/paperscript" canvas="meme-gen__canvas-hidden"></script>
+</body>
 </html>
