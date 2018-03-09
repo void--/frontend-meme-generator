@@ -110,6 +110,15 @@ document.addEventListener('click', function(e) {
     }
 });
 
+defaultImage.onLoad = function() {
+    [2,3,4,5,6,7,8,9].forEach(function (el) {
+        var img = new Image();
+        img.src = "./assets/default_images/" + el + ".jpg";
+        img.style.display = 'none';
+        document.querySelector("body").appendChild(img);
+    })
+};
+
 dummyInput.addEventListener('input', function(e) {
     if (state.canvasFocused && state.contentEditing) {
         if (e.target.value.match(banned)) {
