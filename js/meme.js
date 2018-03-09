@@ -41,7 +41,7 @@ PointText.prototype.setFontWidth = function(percent) {
 var defaultImage = new Raster('./assets/default_images/1.jpg', view.center).sendToBack();
 
 var laLove = new PointText({
-    point: [view.bounds.x + (view.bounds.width * 10/100) - 15, view.center.y + 100],
+    point: [view.bounds.x + (view.bounds.width * 10/100) - 15, view.center.y],
     content: 'LA',
     fontFamily: 'FatFont',
     fontSize: 550,
@@ -53,7 +53,7 @@ var heart = project.importSVG('<path xmlns="http://www.w3.org/2000/svg" class="c
 heart.bounds.height = 400;
 heart.bounds.width = 400;
 heart.fillColor = textColor;
-heart.position = [view.bounds.width - (view.bounds.width * 10/100) - (heart.bounds.width / 2), view.center.y + 100 - (heart.bounds.height / 2)];
+heart.position = [view.bounds.width - (view.bounds.width * 10/100) - (heart.bounds.width / 2), view.center.y - (heart.bounds.height / 2)];
 
 var userText = new PointText({
     point: view.center,
@@ -135,10 +135,20 @@ dummyInput.addEventListener('input', function(e) {
             userText.setFontWidth(80);
         }
 
-        
-
         userText.centerText();
         userText.updatePosition();
+
+        // yes there are some magic numbers in here... There is some undisclosed distance between
+        // the text "top" and the actual top of the letters. ¯\_(ツ)_/¯
+        var realTop = laLove.bounds.top + 105;
+        var realBottom = userText.bounds.bottom - 0.3*userText.bounds.height;
+        var marginWidth = (view.bounds.height - (realBottom - realTop)) / 2;
+        var delta = realTop - marginWidth;
+
+        laLove.bounds.top = laLove.bounds.top - delta;
+        heart.bounds.top = heart.bounds.top - delta;
+        userText.bounds.top = userText.bounds.top - delta;
+
         cursor.update();
     }
 });
