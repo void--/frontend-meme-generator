@@ -38,7 +38,7 @@ PointText.prototype.setFontWidth = function(percent) {
     }
 };
 
-var defaultImage = new Raster('./assets/observatory.jpg', view.center).sendToBack();
+var defaultImage = new Raster('./assets/default_images/1.jpg', view.center).sendToBack();
 
 var laLove = new PointText({
     point: [view.bounds.x + (view.bounds.width * 10/100) - 15, view.center.y + 100],
@@ -184,7 +184,7 @@ defaultImages.forEach(function(el, i) {
            defaultImage.remove();
        }
 
-       raster = new Raster(e.target.src, view.center).sendToBack();
+       raster = new Raster(e.target.src.replace('/thumbnails', ''), view.center).sendToBack();
        raster.opacity = 0;
    });
 });
