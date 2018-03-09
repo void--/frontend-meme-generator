@@ -72,9 +72,13 @@
         }
 
         .meme-gen__container svg {
-            height: 20px;
-            width: 20px;
+            height: 17px;
+            width: 17px;
             margin-right: 10px;
+        }
+
+        .meme-gen__container svg.meme-gen__svg--wide {
+            width: 20px;
         }
 
         .meme-gen__button {
@@ -199,7 +203,7 @@
                 share
             </span>
             <a class="meme-gen__button" id="meme-gen__download-link">
-                <svg role="img" title="Download">
+                <svg role="img" title="Download" class="meme-gen__svg--wide">
                     <use xlink:href="assets/icons.svg#download"/>
                 </svg>
                 download
@@ -252,7 +256,7 @@
                 Text Color
             </button>
             <button id="meme-gen__photo-button" class=" meme-gen__button meme-gen__photo-button">
-                <svg role="img" title="Image">
+                <svg role="img" title="Image" class="meme-gen__svg--wide">
                     <use xlink:href="assets/icons.svg#image"/>
                 </svg>
                 Add photo
