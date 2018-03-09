@@ -20,7 +20,7 @@ var controlsTwo = document.getElementById('meme-gen__controls-2');
 var fileInput = document.getElementById('meme-gen__file-upload');
 var downloadLink = document.getElementById('meme-gen__download-link');
 var reloadButton = document.getElementById('meme-gen__reload-button');
-var defaultImages = document.querySelectorAll('.meme-gen__default-image');
+var defaultImages = document.querySelectorAll('.meme-gen__default-image img');
 var raster = null;
 var textColor = 'white';
 
@@ -105,7 +105,8 @@ userText.centerText();
  ========================================================================== */
 
 document.addEventListener('click', function(e) {
-    if ((e.target !== dummyCanvas) && (e.target !== dummyInput)) {
+    var thumbnails = [].slice.call(defaultImages);
+    if ((e.target !== dummyCanvas) && (e.target !== dummyInput) && (thumbnails.indexOf(e.target) === -1)) {
         state.canvasFocused = false;
     }
 });
@@ -167,6 +168,9 @@ dummyInput.addEventListener('click', function(e) {
     state.canvasFocused = true;
 });
 
+dummyInput.focus();
+dummyInput.click();
+
 photoButton.addEventListener('click', function() {
     fileInput.click();
 });
@@ -200,6 +204,9 @@ defaultImages.forEach(function(el, i) {
 
        raster = new Raster(e.target.src.replace('/thumbnails', ''), view.center).sendToBack();
        raster.opacity = 0;
+
+       dummyInput.focus();
+       dummyInput.click();
    });
 });
 
@@ -315,6 +322,10 @@ function onFrame(e) {
         cursor.blink(0.02);
     }
     else {
+        cursor.opacity = 0;
+    }
+
+    if (!state.canvasFocused) {
         cursor.opacity = 0;
     }
 
