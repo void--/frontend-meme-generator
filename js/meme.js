@@ -289,7 +289,7 @@ fileInput.addEventListener('change', function(e) {
 downloadLink.addEventListener('click', function() {
     var canvas = document.getElementById('meme-gen__canvas-hidden');
     this.href = canvas.toDataURL('image/jpeg');
-    this.download = 'la-loves-' + userText.content.toLowerCase().replace(/ /g, '-') + '.png';
+    this.download = 'la-loves-' + userText.content.toLowerCase().replace(/ /g, '-') + '.jpeg';
 });
 
 reloadButton.addEventListener('click', function() {
