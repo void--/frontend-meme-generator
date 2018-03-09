@@ -3,7 +3,7 @@ var state = {
     canvasFocused: false
 };
 
-var banned = /fuck|traffic/i;
+var banned = new RegExp(memeGenBannedWords.join('|'), 'i');
 
 /* ==========================================================================
     Canvas Elements
