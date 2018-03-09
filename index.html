@@ -13,6 +13,12 @@
             src: url('assets/AvenirNextCondensed-Medium.ttf') format('truetype');
         }
 
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .meme-gen__container {
             width: 80vw;
             max-width: 500px;
@@ -144,7 +150,11 @@
         .meme-gen--hidden {
             display: none;
         }
-
+        .meme-gen--no-show {
+            visibility: hidden;
+            height: 0;
+            width: 0;
+        }
         .tjm-c {
             padding-top: 3rem;
         }
@@ -185,8 +195,8 @@
     </style>
 </head>
 <body>
-<div style="font-family: 'FatFont'; visibility: hidden">force font load</div>
-<input id="meme-gen__file-upload" type="file" style="visibility: hidden">
+<div style="font-family: 'FatFont';" class="meme-gen--no-show">force font load</div>
+<input id="meme-gen__file-upload" type="file" class="meme-gen--no-show">
 <div id="meme-gen__container" class="meme-gen__container">
     <canvas id="meme-gen__canvas-hidden" class="meme-gen__canvas" width="1200" height="1200"></canvas>
     <div class="meme-gen__dummy-wrapper">
