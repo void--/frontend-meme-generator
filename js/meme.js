@@ -135,12 +135,7 @@ dummyInput.addEventListener('input', function(e) {
             userText.setFontWidth(80);
         }
 
-        if (userText.content.length >= 1) {
-            controlsOne.classList.remove('meme-gen--hidden');
-        }
-        else {
-            controlsOne.classList.add('meme-gen--hidden');
-        }
+        
 
         userText.centerText();
         userText.updatePosition();
