@@ -105,8 +105,7 @@ userText.centerText();
  ========================================================================== */
 
 document.addEventListener('click', function(e) {
-    var thumbnails = [].slice.call(defaultImages);
-    if ((e.target !== dummyCanvas) && (e.target !== dummyInput) && (thumbnails.indexOf(e.target) === -1)) {
+    if ((e.target !== dummyCanvas) && (e.target !== dummyInput)) {
         state.canvasFocused = false;
     }
 });
@@ -204,9 +203,6 @@ defaultImages.forEach(function(el, i) {
 
        raster = new Raster(e.target.src.replace('/thumbnails', ''), view.center).sendToBack();
        raster.opacity = 0;
-
-       dummyInput.focus();
-       dummyInput.click();
    });
 });
 
